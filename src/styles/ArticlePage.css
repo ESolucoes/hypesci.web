@@ -1,0 +1,62 @@
+*,
+*::before,
+*::after { box-sizing: border-box; }
+html, body, #root { width: 100%; margin: 0; padding: 0; }
+
+.article-container {
+  max-width: 980px;
+  margin: 0 auto 48px auto;
+  padding: 0 16px;
+}
+
+.a-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0 16px 0;
+}
+
+.a-btn {
+  background: #1c1c1f;
+  color: #f2f2f2;
+  border: 1px solid #2a2a2f;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.a-btn:hover { background: #26262a; }
+
+.a-lang select {
+  background: #1c1c1f;
+  color: #f2f2f2;
+  border: 1px solid #2a2a2f;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.a-card {
+  width: 100%;
+  max-width: 900px;
+  margin: 12px auto;
+  background: #131316;
+  color: #e9e9ea;
+  border: 1px solid #24242a;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+  padding: 18px 20px;
+}
+
+.a-card--title { font-size: 1.4rem; font-weight: 800; }
+.a-card--body  { line-height: 1.6; font-size: 1rem; }
+
+.a-card--meta {
+  font-size: 0.95rem;
+  color: #c9c9cf;
+}
+
+.article-container .katex { color: #e9e9ea; }
+.article-container .katex-display { overflow-x: auto; }
+
+.article-container a { color: #7db3ff; }
+.article-container a:hover { text-decoration: underline; }

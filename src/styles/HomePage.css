@@ -1,0 +1,49 @@
+*,
+*::before,
+*::after { box-sizing: border-box; }
+html, body, #root { width: 100%; margin: 0; padding: 0; }
+
+.header {
+  background: #111;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+main {
+  max-width: 980px;
+  margin: 2rem auto;
+  padding: 0 16px;
+}
+
+.cards-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card {
+  background: rgba(16, 16, 20, 0.35);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  color: #fff;
+  width: 100%;
+  max-width: 900px;
+  margin: 12px auto;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.45);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  background: rgba(16, 16, 20, 0.45);
+}
+.card h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #fff;
+}
