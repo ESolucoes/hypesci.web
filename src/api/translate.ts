@@ -42,7 +42,19 @@ export async function translateText(
     });
     if (!res.ok) throw new Error(`HTTP ${res.status} ${await res.text()}`);
     const data = await res.json();
-    const out = data?.translatedText ?? q;
+
+    // Compatibilidade com LibreTranslate e variações
+    let out: string;
+    if (typeof data?.translatedText === 'string') {
+      out = data.translatedText;
+    } else if (Array.isArray(data)) {
+      out = typeof data[0] === 'string'
+        ? data[0]
+        : (data[0]?.translatedText ?? q);
+    } else {
+      out = q;
+    }
+
     memCache.set(k, out);
     try { sessionStorage.setItem(k, out); } catch {}
     return out;
@@ -80,10 +92,20 @@ export async function translateMany(
     const data = await res.json();
 
     let outs: string[] = [];
-    if (Array.isArray(data)) outs = data.map((d: any) => d?.translatedText ?? '');
-    else if (Array.isArray(data?.translations)) outs = data.translations.map((d: any) => d?.text ?? d?.translatedText ?? '');
-    else if (typeof data?.translatedText === 'string') outs = [data.translatedText];
-    else throw new Error('Formato bulk inesperado');
+    if (Array.isArray(data)) {
+      // Pode vir ["texto1","texto2"] ou [{translatedText:"..."}, ...]
+      outs = data.map((d: any) =>
+        typeof d === 'string' ? d : (d?.translatedText ?? '')
+      );
+    } else if (Array.isArray(data?.translations)) {
+      outs = data.translations.map(
+        (d: any) => d?.text ?? d?.translatedText ?? ''
+      );
+    } else if (typeof data?.translatedText === 'string') {
+      outs = [data.translatedText];
+    } else {
+      throw new Error('Formato bulk inesperado');
+    }
 
     toSend.forEach(({ idx, text }, j) => {
       const out = outs[j] ?? text;
